@@ -6,6 +6,14 @@ public class AuthResponse {
 	
 	private String token;
 	private boolean isValid;
+	private long id;
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String setToken() {
 		return token;
 	}
@@ -22,10 +30,11 @@ public class AuthResponse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AuthResponse(String username, boolean isValid) {
+	public AuthResponse(String username, boolean isValid, long id) {
 		super();
 		this.token = username;
 		this.isValid = isValid;
+		this.id = id;
 	}
 	@Override
 	public String toString() {

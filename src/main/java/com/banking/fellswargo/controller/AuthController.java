@@ -49,7 +49,7 @@ public class AuthController {
         }
         String token =  jwtUtil.generateToken(authRequest.getUserName());
         System.out.println(token);
-        AuthResponse response = new AuthResponse(token, true);
+//        AuthResponse response = new AuthResponse(token, true);
 //        System.out.println(response);
 //        return response;
         return token;

@@ -83,31 +83,36 @@ public class CustomerDetailsController {
 	public ResponseEntity<?> createAccount(@Validated @RequestBody RequestWrapper wrapper){
 		CustomerDetails detail = wrapper.getCustomerDetails();
 		Customer customer = wrapper.getCustomer();
+		long id = 0;
 		try {
-			createAccountUtil(detail, customer);
+			id = createAccountUtil(detail, customer);
 		} catch(Exception e) {
 		
 		}
-		Response  response = new Response("Account created successfully");
+		Response response;
+		if(id == 0) {
+			  response = new Response("Account not created", id);
+		}
+		else  response = new Response("Account created successfully", id);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 	}
 	
-	public void createAccountUtil(CustomerDetails receiveddetail, Customer receivedcustomer) {
+	public long createAccountUtil(CustomerDetails receiveddetail, Customer receivedcustomer) {
 	
 		Account account = new Account();
 		account.setCustomer(receivedcustomer);
 		receivedcustomer.getAccounts().add(account);
 		
 		Customer createdcustomer = cusS.createCustomer(receivedcustomer);
-		account = accountService.createAccount(account);
+	
 		receiveddetail.setCustomer(createdcustomer);
 		
 //		consle.
 		receiveddetail.setId(createdcustomer.getId());
 	
 		CustomerDetails createdcustomerDetails = customerService.createCustomerDetail(receiveddetail);
-
+		return createdcustomerDetails.getId();
 
 	}
 
