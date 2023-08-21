@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //import com.banking.fellswargo.model.Account;
@@ -26,9 +27,18 @@ public class TransactionController {
 		return transactionService.getAllTransactions();
 	}
 	
-	@PostMapping("/transactions/")
-	public Transaction updateTransaction(@Validated @RequestBody Transaction transaction) {
-		return transactionService.conductTrasaction(transaction);
+	@GetMapping("/transactions")
+	public List<Transaction> getAllDetailsByType(@RequestParam(value="type") String type){
+		return transactionService.getAllTransactionsByType(type);
+	}
+	@PostMapping("/transactions")
+	public Transaction updateTransaction(@Validated @RequestBody Transaction transaction) throws Exception {
+
+		 boolean isValid = transactionService.validateTransaction(transaction);
+		if(isValid)
+			return transactionService.conductTrasaction(transaction);
+
+		return null;
 		
 	}
 	

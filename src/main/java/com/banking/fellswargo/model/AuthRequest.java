@@ -10,10 +10,10 @@ package com.banking.fellswargo.model;
 //@NoArgsConstructor
 public class AuthRequest {
 
-    private String userName;
+    private String id;
     private String password;
-	public String getUserName() {
-		return userName;
+	public String getId() {
+		return id;
 	}
 	
 	public AuthRequest() {
@@ -21,8 +21,8 @@ public class AuthRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String id) {
+		this.id = id;
 	}
 	public String getPassword() {
 		return password;
@@ -30,9 +30,9 @@ public class AuthRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public AuthRequest(String userName, String password) {
+	public AuthRequest(String id, String password) {
 		super();
-		this.userName = userName;
+		this.id = id;
 		this.password = password;
 	}
 	

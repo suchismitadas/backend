@@ -29,6 +29,9 @@ public class AccountService {
 		
 		return accountRepository.save(account);
 	}
+	public Account getAccountByCustomer(long id) {
+		return accountRepository.findByCustomerId(id);
+	}
 	public Account getAccount(int number) {
 		return accountRepository.findByAccountNumber(number);
 	}

@@ -11,4 +11,5 @@ import com.banking.fellswargo.model.Transaction;
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 
 	public List<Transaction> findByFromAccountOrToAccount(int fromAccount, int toAccount);
+	public List<Transaction> findByType(String type);
 }

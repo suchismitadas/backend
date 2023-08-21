@@ -59,6 +59,13 @@ public class Customer  {
 	
 
 	
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", password=" + password + ", emailId=" + emailId + ", internetBankingAllowed="
+				+ internetBankingAllowed + ", verifiedUser=" + verifiedUser + ", lastUserLogin=" + lastUserLogin
+				+ ", accounts=" + accounts + "]";
+	}
+
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

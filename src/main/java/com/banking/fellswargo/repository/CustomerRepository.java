@@ -11,4 +11,5 @@ import com.banking.fellswargo.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 //	@Quecry("insert into CUSTOMER VALUES({ID}, 1234, 12") 
 	public Optional<Customer> findById(int id);
+	Customer findByEmailId(String email);
 }

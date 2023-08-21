@@ -3,6 +3,8 @@ package com.banking.fellswargo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,11 +39,11 @@ public class AccountController {
 //		return account.get();
 //	}
 //	
-//	@PostMapping("/accounts")
-//	public Account createAccount(@Valid @RequestBody Account account ) {
-//		Account account = accountService.createAccounts();
+	@PostMapping("/accounts")
+	public Account createAccount(@Valid @RequestBody Account account ) {
+		return accountService.createAccount(account);
 //		return account;
-//	}
+	}
 //	
 //	@PutMapping("/accounts/{id}")
 //	public Account updateAccount(@PathVariable Integer id, @Valid @RequestBody Account account ) {

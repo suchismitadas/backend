@@ -19,7 +19,7 @@ public class RequestWrapper {
 		
 		
 	}
-	public RequestWrapper(CustomerDetails customerDetails, Customer customer) {
+	public RequestWrapper(Customer customer, CustomerDetails customerDetails) {
 		super();
 		this.customerDetails = customerDetails;
 		this.customer = customer;

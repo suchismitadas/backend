@@ -1,7 +1,9 @@
 package com.banking.fellswargo.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,8 +66,9 @@ public class CustomerDetailsController {
 	public ResponseEntity<CustomerDetails> getCustomerDetails(@PathVariable Long id) throws ResourceNotFoundException {
 //		try {
 	
-		ResponseEntity<CustomerDetails> account = customerService.getCustomerDetailsById(id);
-		return account;
+		ResponseEntity<CustomerDetails> customerDetail = customerService.getCustomerDetailsById(id);
+		
+		return customerDetail;
 //		 catch(ResourceNotFoundException e) {
 ////			throw e;
 //			globalExceptionHandler.resourceNotFoundException(e,null );
@@ -80,9 +83,14 @@ public class CustomerDetailsController {
 
 	@PostMapping("/register")
 //	public ResponseEntity<?> createAccount(@Validated @RequestBody CustomerDetails detail, @Validated @RequestBody Customer customer) {
-	public ResponseEntity<?> createAccount(@Validated @RequestBody RequestWrapper wrapper){
+	public ResponseEntity<?> createAccount(@Validated @RequestBody RequestWrapper wrapper) throws Exception{
 		CustomerDetails detail = wrapper.getCustomerDetails();
+		
 		Customer customer = wrapper.getCustomer();
+		if(cusS.getCustomerByEmailId(customer.getEmailId())!=null) {
+			throw new Exception("Email already in use");
+		};
+		System.out.println(detail+" "+customer);
 		long id = 0;
 		try {
 			id = createAccountUtil(detail, customer);
@@ -91,7 +99,9 @@ public class CustomerDetailsController {
 		}
 		Response response;
 		if(id == 0) {
-			  response = new Response("Account not created", id);
+				throw new Exception("Account not created");
+//			  response = new Response("Account not created", id);
+//			  return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		else  response = new Response("Account created successfully", id);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -105,13 +115,15 @@ public class CustomerDetailsController {
 		receivedcustomer.getAccounts().add(account);
 		
 		Customer createdcustomer = cusS.createCustomer(receivedcustomer);
+		Account createdAccount = accountService.createAccount(account);
 	
 		receiveddetail.setCustomer(createdcustomer);
-		
+		System.out.println("----"+createdcustomer);
 //		consle.
 		receiveddetail.setId(createdcustomer.getId());
 	
 		CustomerDetails createdcustomerDetails = customerService.createCustomerDetail(receiveddetail);
+		System.out.println("----"+createdcustomerDetails);
 		return createdcustomerDetails.getId();
 
 	}

@@ -38,6 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7); //eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY3NDgyNDI2OCwiaWF0IjoxNjc0NjQ0MjY4fQ.fK0KxNJRy6Sg-g-cc9LrlpErgqLGPRdbtWbPd1wjuAU
             userName = jwtUtil.extractUsername(token);
+//            System.out.println(userName);
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -42,12 +42,12 @@ public class AuthController {
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(authRequest.getId(), authRequest.getPassword())
             );
         } catch (Exception ex) {
             throw new Exception("inavalid username/password");
         }
-        String token =  jwtUtil.generateToken(authRequest.getUserName());
+        String token =  jwtUtil.generateToken(authRequest.getId());
         System.out.println(token);
 //        AuthResponse response = new AuthResponse(token, true);
 //        System.out.println(response);

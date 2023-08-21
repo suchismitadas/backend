@@ -9,6 +9,7 @@ import com.banking.fellswargo.model.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	
 	public Account findByAccountNumber(Integer number);
+	public Account findByCustomerId(Long number);
 //	public Account find
 
 }

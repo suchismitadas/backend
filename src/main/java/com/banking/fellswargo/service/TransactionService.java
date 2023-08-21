@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.banking.fellswargo.model.Account;
 //import com.banking.fellswargo.model.Account;
 import com.banking.fellswargo.model.Transaction;
 import com.banking.fellswargo.repository.AccountRepository;
@@ -16,6 +17,9 @@ public class TransactionService {
 
 	@Autowired
 	TransactionRepository transactionRepository;
+	
+//	@Autowired
+//	Account
 
 	@Autowired
 	AccountService accountService;
@@ -31,7 +35,27 @@ public class TransactionService {
 //		return transaction;
 	}
 	
-	public List<Transaction> filterTransaction(int accountNumber) {
+	public List<Transaction> filterTransaction(int accountNumber){
 		return transactionRepository.findByFromAccountOrToAccount(accountNumber, accountNumber);
+	}
+	public List<Transaction> getAllTransactionsByType(String type){
+		return transactionRepository.findByType(type);
+	}
+	
+	public boolean validateTransaction(Transaction transaction)  throws Exception{
+		Account toAccount = accountService.getAccount(transaction.getToAccount());
+		Account fromAccount = accountService.getAccount(transaction.getFromAccount());
+		if(transaction.getAmount()<0) {
+			throw new Exception("Amount cannot be negative");
+		}
+		if(toAccount==null)
+			throw new Exception("to account not found");
+		if(fromAccount==null)
+			throw new Exception("from Account not found");
+		int amount = transaction.getAmount();
+		if(amount>fromAccount.getBalance()) {
+			throw new Exception("Insufficient balance");
+		}
+		return true;
 	}
 }

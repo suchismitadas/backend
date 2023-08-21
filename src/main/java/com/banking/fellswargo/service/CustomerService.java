@@ -26,6 +26,10 @@ public class CustomerService implements UserDetailsService {
 		return customerRepository.save(customer);
 	}
 	
+	public Customer getCustomerByEmailId(String email) {
+		return customerRepository.findByEmailId(email);
+	}
+	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
