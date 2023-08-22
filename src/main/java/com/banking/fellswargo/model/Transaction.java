@@ -11,6 +11,7 @@ import javax.persistence.Id;
 //import jakarta.persistence.JoinColumn;
 //import jakarta.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="transaction")
@@ -28,6 +29,7 @@ public class Transaction {
 	
 //	@OneToOne(cascade=CascadeType.ALL)
 //	@JoinColumn(name="from_account", referencedColumnName = "account_number")
+	@NotNull
 	@Column(name="fromAccount")
 	private int fromAccount;
 	
@@ -37,7 +39,7 @@ public class Transaction {
 	private int toAccount;
 	
 	@Column(name="status")
-	private String status;
+	private String status = "completed";
 	
 	@Column(name="remark")
 	private String remark;

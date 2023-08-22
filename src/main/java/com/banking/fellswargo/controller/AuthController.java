@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banking.fellswargo.model.AuthRequest;
@@ -23,7 +24,7 @@ import com.banking.fellswargo.model.AuthResponse;
 //import com.banking.fellswargo.model.JwtResponse;
 import com.banking.fellswargo.util.JwtUtil;
 //import com.banking.fellswargo.jwt.JwtHelper;
-
+//import java.util.*
 @RestController
 //@RequestMapping("/auth")
 @CrossOrigin
@@ -36,8 +37,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
    
-
-    
+  
     @PostMapping("/login")
     public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {

@@ -129,7 +129,7 @@ public class CustomerDetailsController {
 	}
 
 	@PutMapping("customer-details/{id}")
-	public CustomerDetails updateAccount(@PathVariable Long id, @RequestBody CustomerDetails customerDetails) {
+	public CustomerDetails updateAccount(@PathVariable Long id, @RequestBody CustomerDetails customerDetails) throws Exception {
 		return customerService.updateCustomerDetail(id, customerDetails);
 	}
 //	

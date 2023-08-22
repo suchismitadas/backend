@@ -51,12 +51,12 @@ public class CustomerDetailsService {
 		return result;
 		}
 	
-	public CustomerDetails updateCustomerDetail(Long id, CustomerDetails detail) {
+	public CustomerDetails updateCustomerDetail(Long id, CustomerDetails detail) throws Exception{
 		Optional<CustomerDetails> updatedCustomer = customerDetailsRepository.findById(id);
 //		if updatedCUsotme
 		if(updatedCustomer.isPresent()==false) {
-			System.out.println("No customer foudn to updat it ");
-			return null;
+			throw new Exception("Customer not found");
+	
 		}
 		CustomerDetails cd = updatedCustomer.get();
 		cd.setAadhar(detail.getAadhar());

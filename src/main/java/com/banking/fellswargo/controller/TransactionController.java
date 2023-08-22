@@ -27,7 +27,7 @@ public class TransactionController {
 		return transactionService.getAllTransactions();
 	}
 	
-	@GetMapping("/transactions")
+	@GetMapping("/transactions?{type}")
 	public List<Transaction> getAllDetailsByType(@RequestParam(value="type") String type){
 		return transactionService.getAllTransactionsByType(type);
 	}

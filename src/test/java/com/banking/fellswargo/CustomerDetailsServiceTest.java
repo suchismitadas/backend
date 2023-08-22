@@ -29,7 +29,7 @@ class CustomerDetailsServiceTest {
 	}
 	
 	@Test
-	void updateCustomerDetail() {
+	void updateCustomerDetail() throws Exception {
 		CustomerDetails customerDetail = new CustomerDetails();
 		customerDetail.setAadhar("1234");
 		customerDetail = customerDetailService.createCustomerDetail(customerDetail);
