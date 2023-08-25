@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banking.fellswargo.exceptions.CustomerException;
 import com.banking.fellswargo.model.AuthRequest;
 import com.banking.fellswargo.model.AuthResponse;
+import com.banking.fellswargo.model.Customer;
+import com.banking.fellswargo.model.Response;
+import com.banking.fellswargo.service.CustomerService;
 //import com.banking.fellswargo.model.JwtRequest;
 //import com.banking.fellswargo.model.JwtResponse;
 import com.banking.fellswargo.util.JwtUtil;
@@ -35,11 +39,13 @@ public class AuthController {
     private JwtUtil jwtUtil;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    
+    @Autowired
+    private CustomerService customerService;
    
   
     @PostMapping("/login")
-    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getId(), authRequest.getPassword())
@@ -47,12 +53,17 @@ public class AuthController {
         } catch (Exception ex) {
             throw new Exception("inavalid username/password");
         }
+        Customer customer = customerService.getCustomerById(Long.parseLong(authRequest.getId()));
+        if(customer.isVerifiedUser()==false) {
+        	throw new CustomerException("Customer not verifeid. Please wait for admin approval/kyc", "Custmoer id", "not verified");
+        }
         String token =  jwtUtil.generateToken(authRequest.getId());
         System.out.println(token);
-//        AuthResponse response = new AuthResponse(token, true);
+        Response response = new Response(token,Integer.parseInt(authRequest.getId()) );
 //        System.out.println(response);
 //        return response;
-        return token;
+//        return token;
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
 //        return new ResponseEntity<>(new AuthResponse(token, true), HttpStatus.ACCEPTED);
     }
 

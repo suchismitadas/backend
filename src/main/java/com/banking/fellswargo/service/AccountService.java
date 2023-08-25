@@ -26,7 +26,7 @@ public class AccountService {
 	}
 	public Account createAccount(Account account) {
 		// TODO Auto-generated method stub
-		
+//		List<Account> oldAccount = account.getCustomer().getAccounts();
 		return accountRepository.save(account);
 	}
 	public Account getAccountByCustomer(long id) {
@@ -34,6 +34,11 @@ public class AccountService {
 	}
 	public Account getAccount(int number) {
 		return accountRepository.findByAccountNumber(number);
+	}
+	public void deleteAccount(Integer id) {
+		// TODO Auto-generated method stub
+		accountRepository.deleteById(id);
+		
 	}
 	
 	

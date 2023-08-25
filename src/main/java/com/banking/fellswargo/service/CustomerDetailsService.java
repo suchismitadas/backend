@@ -55,7 +55,7 @@ public class CustomerDetailsService {
 		Optional<CustomerDetails> updatedCustomer = customerDetailsRepository.findById(id);
 //		if updatedCUsotme
 		if(updatedCustomer.isPresent()==false) {
-			throw new Exception("Customer not found");
+			throw new ResourceNotFoundException("Customer not found");
 	
 		}
 		CustomerDetails cd = updatedCustomer.get();
@@ -68,5 +68,12 @@ public class CustomerDetailsService {
 		customerDetailsRepository.save(cd);
 		return cd;
 		
+	}
+	
+	public void deleteCustomerDetail(long id) {
+		// TODO Auto-generated method stub
+		customerDetailsRepository.deleteById(id);
+//		 customerRepository.dele
+//		return null;
 	}
 }

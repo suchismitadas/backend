@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import com.banking.fellswargo.exceptions.AccountException;
 import com.banking.fellswargo.exceptions.GlobalExceptionHandler;
 import com.banking.fellswargo.exceptions.ResourceNotFoundException;
 //import com.banking.fellswargo.jwt.JwtHelper;
@@ -37,7 +38,7 @@ import com.banking.fellswargo.util.JwtUtil;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class CustomerDetailsController {
 
 	@Autowired
@@ -57,10 +58,9 @@ public class CustomerDetailsController {
 //	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@GetMapping("/customer-details")
-	public List<CustomerDetails> getAllDetails() {
-		return customerService.getAllCustomers();
+	public ResponseEntity<List<CustomerDetails>> getAllDetails() {
+		return new ResponseEntity<>(customerService.getAllCustomers(),HttpStatus.OK);
 	}
-
 	@GetMapping("/customer-details/{id}")
 
 	public ResponseEntity<CustomerDetails> getCustomerDetails(@PathVariable Long id) throws ResourceNotFoundException {
@@ -88,49 +88,47 @@ public class CustomerDetailsController {
 		
 		Customer customer = wrapper.getCustomer();
 		if(cusS.getCustomerByEmailId(customer.getEmailId())!=null) {
-			throw new Exception("Email already in use");
+			throw new AccountException("Email already in use", "emailid", "DuplicateValue");
 		};
-		System.out.println(detail+" "+customer);
+//		System.out.println(detail+" "+customer);
 		long id = 0;
 		try {
 			id = createAccountUtil(detail, customer);
 		} catch(Exception e) {
-		
+		/*THROW NEW EXCEPTION("ACCOUNT NOT CREATED"*/
+			throw new Exception("Account not created");
+
 		}
 		Response response;
-		if(id == 0) {
-				throw new Exception("Account not created");
-//			  response = new Response("Account not created", id);
-//			  return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-		}
-		else  response = new Response("Account created successfully", id);
+		
+		  response = new Response("Account created successfully", id);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 	}
 	
 	public long createAccountUtil(CustomerDetails receiveddetail, Customer receivedcustomer) {
 	
-		Account account = new Account();
-		account.setCustomer(receivedcustomer);
-		receivedcustomer.getAccounts().add(account);
+//		Account account = new Account();
+//		account.setCustomer(receivedcustomer);
+//		receivedcustomer.getAccounts().add(account);
 		
 		Customer createdcustomer = cusS.createCustomer(receivedcustomer);
-		Account createdAccount = accountService.createAccount(account);
+//		Account createdAccount = accountService.createAccount(account);
 	
 		receiveddetail.setCustomer(createdcustomer);
-		System.out.println("----"+createdcustomer);
+	
 //		consle.
 		receiveddetail.setId(createdcustomer.getId());
 	
 		CustomerDetails createdcustomerDetails = customerService.createCustomerDetail(receiveddetail);
-		System.out.println("----"+createdcustomerDetails);
+		
 		return createdcustomerDetails.getId();
 
 	}
 
 	@PutMapping("customer-details/{id}")
-	public CustomerDetails updateAccount(@PathVariable Long id, @RequestBody CustomerDetails customerDetails) throws Exception {
-		return customerService.updateCustomerDetail(id, customerDetails);
+	public ResponseEntity<CustomerDetails> updateAccount(@PathVariable Long id, @RequestBody CustomerDetails customerDetails) throws Exception {
+		return new ResponseEntity<>(customerService.updateCustomerDetail(id, customerDetails),HttpStatus.OK);
 	}
 //	
 //	@DeleteMapping("/accounts/{id}")

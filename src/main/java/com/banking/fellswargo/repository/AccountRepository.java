@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.banking.fellswargo.model.Account;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
 	
 	public Account findByAccountNumber(Integer number);
 	public Account findByCustomerId(Long number);

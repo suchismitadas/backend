@@ -62,6 +62,17 @@ public class Transaction {
 		this.remark = remark;
 	}
 
+	public Transaction(LocalDate date, String type, @NotNull int fromAccount, int toAccount, String status,
+			String remark, int amount) {
+		super();
+		this.date = date;
+		this.type = type;
+		this.fromAccount = fromAccount;
+		this.toAccount = toAccount;
+		this.status = status;
+		this.remark = remark;
+		this.amount = amount;
+	}
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", date=" + date + ", type=" + type + ", fromAccount=" + fromAccount
