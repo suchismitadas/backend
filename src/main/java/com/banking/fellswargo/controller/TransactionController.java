@@ -84,7 +84,7 @@ public class TransactionController {
 			resultData.addAll(transactionService.filterTransaction(accout.getAccountNumber()));
 //			System.out.println(transactionService.filterTransaction(accout.getAccountNumber()));
 		}
-		System.out.println(resultData);
+//		System.out.println(resultData);
 //		return resultData;
 //		return new ResponseEntity<>(null, HttpStatus.FOUND);
 		return new ResponseEntity<>(resultData, HttpStatus.OK);

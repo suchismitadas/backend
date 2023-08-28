@@ -51,14 +51,14 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(authRequest.getId(), authRequest.getPassword())
             );
         } catch (Exception ex) {
-            throw new Exception("inavalid username/password");
+            throw new Exception("invalid username/password");
         }
         Customer customer = customerService.getCustomerById(Long.parseLong(authRequest.getId()));
         if(customer.isVerifiedUser()==false) {
         	throw new CustomerException("Customer not verifeid. Please wait for admin approval/kyc", "Custmoer id", "not verified");
         }
         String token =  jwtUtil.generateToken(authRequest.getId());
-        System.out.println(token);
+//        System.out.println(token);
         Response response = new Response(token,Integer.parseInt(authRequest.getId()) );
 //        System.out.println(response);
 //        return response;

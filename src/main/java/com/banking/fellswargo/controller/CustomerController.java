@@ -42,7 +42,7 @@ public class CustomerController {
 		result = customerService.updatePassword(id, changepaswordrequest);
 		if(result) {
 			Response response = new Response();
-			response.setMessage("Password had been upded succesfully");
+			response.setMessage("Password had been updated succesfully");
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		return null;
@@ -64,7 +64,7 @@ public class CustomerController {
 	@PostMapping("/deny-customer/{id}")
 	public ResponseEntity<?>denyCustomer(@PathVariable long id) {
 		Customer customerDeleted = customerService.getCustomerById(id);
-		System.out.println(id+"-i am inside---");
+//		System.out.println(id+"-i am inside---");
 		customerService.deleteCustomer(id);
 		customerDetailService.deleteCustomerDetail(id);
 		return new ResponseEntity<>("DONE", HttpStatus.OK);

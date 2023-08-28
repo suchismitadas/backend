@@ -53,7 +53,7 @@ public class TransactionService {
 	}
 	
 	public boolean validateTransaction(Transaction transaction)  throws Exception{
-		System.out.println("i ma here");
+//		System.out.println("i ma here");
 		Account toAccount = accountService.getAccount(transaction.getToAccount());
 		Account fromAccount = accountService.getAccount(transaction.getFromAccount());
 		if(transaction.getAmount()<0) {

@@ -29,7 +29,7 @@ import com.banking.fellswargo.service.CustomerService;
 //import com.banking.fellswargo.service.CustomerService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 public class AccountController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class AccountController {
 		return new ResponseEntity<>(accountService.getAllAccounts(), HttpStatus.FOUND);
 	}
 	
-	@CrossOrigin("*")
+//	@CrossOrigin("*")
 	@GetMapping("/accounts/{id}")
 	public ResponseEntity<?> getAccountDetails(@PathVariable Integer id) {
 //		Console.log(

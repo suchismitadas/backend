@@ -69,16 +69,6 @@ public class CustomerDetailsController {
 		ResponseEntity<CustomerDetails> customerDetail = customerService.getCustomerDetailsById(id);
 		
 		return customerDetail;
-//		 catch(ResourceNotFoundException e) {
-////			throw e;
-//			globalExceptionHandler.resourceNotFoundException(e,null );
-//			return null;
-//		}
-//		if(!account.isPresent()) {
-//			System.out.println("Customer detial not  is not present");
-//			return null;
-//		}
-//		return account.get();
 	}
 
 	@PostMapping("/register")
